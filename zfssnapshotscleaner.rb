@@ -3,7 +3,8 @@ begin
     name = snapshot.split(/ /)[0]
     year, mon, day, hour = name.split(/@/)[1].split(/-/)
 #    puts "#{year} #{mon} #{day} #{hour}"
-    if (day.to_i != Time.new.day.to_i && day.to_i != (Time.new.day.to_i - 1)) && (hour != '00')
+    # There should be a special case for 1
+    if (mon.to_i != Time.new.month.to_i || (day.to_i != Time.new.day.to_i && day.to_i != (Time.new.day.to_i - 1))) && (hour != '00')
 #      puts Time.new.day
 #      puts "Deleting #{year} #{mon} #{day} #{hour}"
       %x[zfs destroy #{name}]
